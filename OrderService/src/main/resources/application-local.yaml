@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  boot:
+    admin:
+      client:
+        url: http://localhost:9090
+#        enabled: true
+#        auto-deregistration: true
+#        auto-registration: true
+  kafka: # kafka will be in multiple brokers, so bootstrap-servers supports multiple servers send it as localhost:9092, localhost:9093
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#     value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+kafka:
+  topic:
+    json:
+      order:
+        name: order-topic
+      email:
+        name: order-email-topic
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enabled: true
+  info:
+    os:
+      enabled: true
+    java:
+      enabled: true
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: Order Service Kafka Producer
+    environment: ${spring.profiles.active}
+    version: '@project.version@'

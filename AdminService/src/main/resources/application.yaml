@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: ADMIN
+  profiles:
+    active: local
